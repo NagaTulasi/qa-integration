@@ -15,3 +15,5 @@ def keys_show(account, type = "acc"):
         return True, json.loads(stdout)
     except Exception as e:
         return False, e
+
+

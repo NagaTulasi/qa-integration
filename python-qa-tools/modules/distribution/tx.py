@@ -15,17 +15,17 @@ DAEMON_HOME = os.getenv('DAEMON_HOME')
 def tx_withdraw_rewards(from_key,validator_addr,gas={DEFAULT_GAS},unsigned = False,sequence = None):
     try:
         if unsigned:
-            command = f"{DAEMON} tx distribution withdraw-rewards {validator_addr} --from {from_key} --chain-id {CHAINID} --output json --node {RPC} --generate-only --gas {gas}"
+            command = f"{DAEMON} tx distribution withdraw-rewards {validator_addr} --from {from_key} --chain-id {CHAINID} --output json --node {RPC}"
             tx, tx_err = exec_command(command)
             if len(tx_err):
                 return False,tx_err
             return True, json.loads(tx)
         else: 
             if sequence is not None:
-                command = f"{DAEMON} tx distribution withdraw-rewards {validator_addr} --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y --sequence {sequence} --gas {gas}"
+                command = f"{DAEMON} tx distribution withdraw-rewards {validator_addr} --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y --sequence {sequence}"
 
             else:
-                 command = f"{DAEMON} tx distribution withdraw-rewards {validator_addr} --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y --gas {gas}"
+                 command = f"{DAEMON} tx distribution withdraw-rewards {validator_addr} --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y"
             tx, tx_err = exec_command(command)
             tx = json.loads(tx)
             if len(tx_err):
@@ -71,9 +71,9 @@ def tx_withdraw_allrewards(from_key,gas={DEFAULT_GAS},unsigned = False,sequence 
             return True, json.loads(tx)
         else:
             if sequence is not None:
-                command = f"{DAEMON} tx distribution withdraw-all-rewards --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y --sequence {sequence} --gas {gas}"
+                command = f"{DAEMON} tx distribution withdraw-all-rewards --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y --sequence {sequence}"
             else:
-                command = f"{DAEMON} tx distribution withdraw-all-rewards --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y --gas {gas}"
+                command = f"{DAEMON} tx distribution withdraw-all-rewards --from {from_key} --chain-id {CHAINID} --keyring-backend test --home {DAEMON_HOME}-1 --node {RPC} --output json -y"
             tx, tx_err = exec_command(command)
             tx = json.loads(tx)
             if len(tx_err):
@@ -129,3 +129,4 @@ def tx_withdraw_addr(from_key,withdraw_addr,gas={DEFAULT_GAS},unsigned = False,s
                 return True,tx
     except Exception as e:
         return False,e
+

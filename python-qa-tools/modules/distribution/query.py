@@ -78,4 +78,3 @@ def query_validator_rewards(validator_addr):
         return True,json.loads(valrewards)
     except Exception as e:
         return False,e
-
